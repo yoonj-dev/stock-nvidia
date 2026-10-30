@@ -23,6 +23,8 @@ import { fetchSynthesisData } from '../../lib/stockApi';
 
 interface LocalLlmSynthesizerProps {
   nvda: StockFundamentals;
+  externalQuestion?: string;
+  onQuestionHandled?: () => void;
 }
 
 type TabKey = SynthesisReportType | 'chat';
@@ -32,11 +34,26 @@ interface ChatMessage {
   content: string;
 }
 
-export const LocalLlmSynthesizer: React.FC<LocalLlmSynthesizerProps> = ({ nvda }) => {
+export const LocalLlmSynthesizer: React.FC<LocalLlmSynthesizerProps> = ({
+  nvda,
+  externalQuestion,
+  onQuestionHandled,
+}) => {
   const [activeTab, setActiveTab] = useState<TabKey>('memo');
   const [synthesisData, setSynthesisData] = useState<LlmSynthesisData | null>(null);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
+
+  // Auto-respond when externalQuestion is passed from Quick AI Dock
+  useEffect(() => {
+    if (externalQuestion) {
+      setActiveTab('chat');
+      setChatInput(externalQuestion);
+      if (onQuestionHandled) {
+        onQuestionHandled();
+      }
+    }
+  }, [externalQuestion, onQuestionHandled]);
 
   // Chat conversation
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([

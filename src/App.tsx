@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/layout/Header';
-import { NvidiaStockHero } from './components/dashboard/NvidiaStockHero';
-import { LocalLlmSynthesizer } from './components/dashboard/LocalLlmSynthesizer';
-import { TradingViewSection } from './components/dashboard/TradingViewSection';
-import { NvidiaFourPillars } from './components/dashboard/NvidiaFourPillars';
-import { ValuationCalculator } from './components/dashboard/ValuationCalculator';
+import { SingleStockTerminal } from './components/dashboard/SingleStockTerminal';
 import { Footer } from './components/layout/Footer';
 import { ThemeMode, getStoredThemeMode, applyThemeToDom, resolveTheme } from './lib/theme';
 import { fetchStockData } from './lib/stockApi';
 import { StockData } from './types/stock';
+import { NVIDIA_PROFILE } from './lib/profiles/nvidiaProfile';
 
 export const App: React.FC = () => {
   const [currentThemeMode, setCurrentThemeMode] = useState<ThemeMode>(getStoredThemeMode);
@@ -71,25 +68,16 @@ export const App: React.FC = () => {
         onRefresh={loadData}
       />
 
-      {/* 2. Main Dashboard Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-4 lg:px-6 py-5 sm:py-6 space-y-6">
-        {/* Executive NVIDIA Investor Hero */}
-        <NvidiaStockHero
-          nvda={nvda}
+      {/* 2. Bento Interactive Terminal */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-5">
+        <SingleStockTerminal
+          profile={NVIDIA_PROFILE}
+          fundamentals={nvda}
           candles={nvdaData?.candles?.['1d_intraday']}
+          resolvedTheme={resolvedTheme}
+          isRefreshing={isRefreshing}
+          onRefresh={loadData}
         />
-
-        {/* Institutional Quantitative Research Station */}
-        <LocalLlmSynthesizer nvda={nvda} />
-
-        {/* TradingView Chart & Multi-Perspective Analysis Suite */}
-        <TradingViewSection theme={resolvedTheme} />
-
-        {/* NVIDIA 4-Pillars Intelligence Deck */}
-        <NvidiaFourPillars />
-
-        {/* Reverse DCF Valuation Calculator & Wall Street Targets */}
-        <ValuationCalculator nvda={nvda} />
       </main>
 
       {/* 3. Global Footer */}
