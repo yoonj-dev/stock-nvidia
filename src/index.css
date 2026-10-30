@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+/* 1. 명시도 (0, 2, 0) 확보 및 class / data-theme 동시 지원 (theme-mode-standard) */
+@custom-variant dark (&:is(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
+/* 2. Light 테마 토큰 선언 */
+:root,
+.light,
+[data-theme="light"] {
+  --background: #f4f5f7;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --surface-sub: #f8fafc;
+  --surface-border: #e2e8f0;
+  --nvidia-green: #76b900;
+  --nvidia-dark: #000000;
+  --up-color: #059669;
+  --down-color: #e11d48;
+  color-scheme: only light;
+}
+
+/* 3. Dark 테마 토큰 선언 */
+.dark,
+:root.dark,
+[data-theme="dark"] {
+  --background: #09090b;
+  --foreground: #f4f4f5;
+  --surface: #121215;
+  --surface-sub: #18181c;
+  --surface-border: rgba(255, 255, 255, 0.08);
+  --nvidia-green: #76b900;
+  --nvidia-dark: #000000;
+  --up-color: #10b981;
+  --down-color: #f43f5e;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+html, body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overscroll-behavior-y: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  min-height: 100vh;
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.selectable-text, .font-mono, [data-selectable="true"] {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+.fintech-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04);
+  border-radius: 0.875rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dark .fintech-card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+.fintech-card-subtle {
+  background: var(--surface-sub);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  border-radius: 0.625rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.dark .fintech-card-subtle {
+  background: var(--surface-sub);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#beer-btn {
+  padding: 7px 13px !important;
+  font-size: 11.5px !important;
+  gap: 5px !important;
+  bottom: 12px !important;
+  right: 12px !important;
+  opacity: 0.82 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16) !important;
+  transition: opacity 0.2s ease, transform 0.2s ease !important;
+}
+
+#beer-btn:hover {
+  opacity: 1 !important;
+}
+
+#beer-btn > span:first-child {
+  font-size: 14px !important;
+}
+
+@media (max-width: 640px) {
+  #beer-btn {
+    padding: 5px 10px !important;
+    font-size: 10.5px !important;
+    gap: 4px !important;
+    bottom: 10px !important;
+    right: 10px !important;
+    opacity: 0.72 !important;
+  }
+  #beer-btn > span:first-child {
+    font-size: 13px !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.6);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

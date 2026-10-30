@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" suppressHydrationWarning>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="google-adsense-account" content="ca-pub-3683251602683857" />
+    <meta name="description" content="NVIDIA on Tap - 엔비디아(NVDA) 실시간 시세, Blackwell AI 슈퍼사이클 속보, 기관 퀀트 리서치 및 밸류에이션 인텔리전스 허브" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3683251602683857" crossorigin="anonymous"></script>
+    
+    <!-- Open Graph / SEO -->
+    <meta property="og:title" content="NVIDIA on Tap - NVIDIA (NVDA) Investor Intelligence Hub" />
+    <meta property="og:site_name" content="NVIDIA on Tap" />
+    <meta property="og:description" content="엔비디아(NVDA) 실시간 장외 시세, 실적 속보, 기관 퀀트 리서치 및 밸류에이션 종합 인텔리전스 허브" />
+    <meta property="og:type" content="website" />
+
+    <!-- iOS / Android Web App / PWA -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="NVIDIA on Tap" />
+    <meta name="theme-color" content="#09090b" />
+
+    <!-- Fonts: Pretendard & JetBrains Mono for financial precision -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <title>NVIDIA on Tap - NVIDIA (NVDA) Investor Hub</title>
+
+    <!-- Theme Initialization (Auto/Light/Dark FOUC prevention) -->
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('theme') || localStorage.getItem('stock_theme') || localStorage.getItem('alpha_theme');
+          var theme = (saved === 'light' || saved === 'dark')
+            ? saved
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          var root = document.documentElement;
+          var body = document.body;
+          if (theme === 'light') {
+            root.classList.remove('dark');
+            root.classList.add('light');
+            root.style.colorScheme = 'only light';
+            root.setAttribute('data-theme', 'light');
+          } else {
+            root.classList.add('dark');
+            root.classList.remove('light');
+            root.style.colorScheme = 'dark';
+            root.setAttribute('data-theme', 'dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-slate-50 dark:bg-[#09090b] text-slate-900 dark:text-zinc-100 antialiased font-sans selection:bg-[#76b900]/20 selection:text-[#76b900] min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
