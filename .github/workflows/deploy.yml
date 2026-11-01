@@ -1,0 +1,38 @@
+name: Deploy stock-nvidia
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Dry-run deployment
+        run: npx wrangler deploy --dry-run
+
+      - name: Deploy to Cloudflare
+        if: env.CLOUDFLARE_API_TOKEN != '' && env.CLOUDFLARE_ACCOUNT_ID != ''
+        run: npx wrangler deploy
+
+      - name: Deployment status summary
+        if: env.CLOUDFLARE_API_TOKEN == '' || env.CLOUDFLARE_ACCOUNT_ID == ''
+        run: |
+          echo "::warning ::Deployment skipped — required GitHub secrets missing."
+          echo "Missing secrets: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID" >> $GITHUB_STEP_SUMMARY
