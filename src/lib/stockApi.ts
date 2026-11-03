@@ -39,9 +39,32 @@ export async function fetchStockData(symbol: string = 'NVDA'): Promise<StockData
   try {
     const localRes = await fetch(`/data/${symbol}.json?t=${Date.now()}`);
     if (localRes.ok) {
-      const localData: StockData = await localRes.json();
+      const localData: any = await localRes.json();
       if (localData?.fundamentals?.currentPrice) {
         data = localData;
+      } else if (localData?.quote?.price) {
+        data = {
+          fundamentals: {
+            symbol: symbol.toUpperCase(),
+            currentPrice: localData.quote.price,
+            previousClose: localData.quote.prevClose || localData.quote.price,
+            change: localData.quote.change || 0,
+            changePercent: localData.quote.changePercent || 0,
+            marketCap: localData.quote.marketCap,
+            fiftyTwoWeekHigh: localData.quote.high52w,
+            fiftyTwoWeekLow: localData.quote.low52w,
+            trailingPE: localData.valuation?.trailingPE,
+            forwardPE: localData.valuation?.forwardPE,
+            targetMeanPrice: localData.valuation?.targetMeanPrice,
+            earningsFlash: localData.earnings,
+            collectorTechnicals: localData.technicals,
+            collectorCatalysts: localData.catalysts,
+            collectorNews: localData.news,
+            collectorAsOf: localData.asOf,
+            recommendationKey: localData.synthesis?.metadata?.recommendation,
+          },
+          candles: { '1d_intraday': [] },
+        };
       }
     }
   } catch {}
