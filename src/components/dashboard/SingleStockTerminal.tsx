@@ -12,7 +12,7 @@ import { StockTickerRibbon } from './StockTickerRibbon';
 import { QuantInsightDock } from './QuantInsightDock';
 import { TradingViewSection } from './TradingViewSection';
 import { LocalLlmSynthesizer } from './LocalLlmSynthesizer';
-import { NvidiaFourPillars } from './NvidiaFourPillars';
+import { CompanyPillars } from './CompanyPillars';
 import { ValuationCalculator } from './ValuationCalculator';
 
 export type WorkspaceTabId = 'chart' | 'ai_memo' | 'moat' | 'valuation';
@@ -35,7 +35,6 @@ export const SingleStockTerminal: React.FC<SingleStockTerminalProps> = ({
   onRefresh,
 }) => {
   const [activeTab, setActiveTab] = useState<WorkspaceTabId>('ai_memo');
-  const [activeAiQuestion, setActiveAiQuestion] = useState<string | undefined>(undefined);
 
   const TABS = [
     {
@@ -147,29 +146,12 @@ export const SingleStockTerminal: React.FC<SingleStockTerminalProps> = ({
                 Gemma 4 로컬 리서치 모델 합성
               </span>
             </div>
-            <LocalLlmSynthesizer
-              nvda={fundamentals}
-              externalQuestion={activeAiQuestion}
-              onQuestionHandled={() => setActiveAiQuestion(undefined)}
-            />
+            <LocalLlmSynthesizer nvda={fundamentals} />
           </section>
 
           {/* Section 2: Core Business Engines & Moats */}
           <section id="section-moat" className="scroll-mt-32 space-y-2">
-            <div className="flex items-center justify-between px-1 pt-2">
-              <div className="flex items-center gap-2">
-                <span className="p-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400">
-                  <Layers className="w-4 h-4" />
-                </span>
-                <h3 className="text-sm font-bold text-slate-900 dark:text-zinc-100">
-                  {profile.name} 4대 핵심 사업부 해자 및 기술적 독점력
-                </h3>
-              </div>
-              <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400 font-mono">
-                Blackwell AI 슈퍼사이클 · CUDA 생태계 해자
-              </span>
-            </div>
-            <NvidiaFourPillars />
+            <CompanyPillars profile={profile} />
           </section>
 
           {/* Section 3: Reverse DCF Valuation Model */}
@@ -214,10 +196,6 @@ export const SingleStockTerminal: React.FC<SingleStockTerminalProps> = ({
           <QuantInsightDock
             profile={profile}
             fundamentals={fundamentals}
-            onSelectAiQuestion={(q) => {
-              setActiveAiQuestion(q);
-              scrollToSection('ai_memo', 'section-ai-memo');
-            }}
             onOpenTab={(tabId) => {
               const matched = TABS.find((t) => t.id === tabId);
               if (matched) scrollToSection(matched.id, matched.domId);

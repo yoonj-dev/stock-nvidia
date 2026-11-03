@@ -202,37 +202,6 @@ export const QuantInsightDock: React.FC<QuantInsightDockProps> = ({
           </button>
         )}
       </div>
-
-      {/* 4. One-Click Quick AI Prompts */}
-      <div className="rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 p-3.5 sm:p-4 shadow-sm space-y-2.5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
-              <Sparkles className="w-3.5 h-3.5" />
-            </span>
-            <h2 className="text-xs font-bold text-slate-900 dark:text-zinc-100 uppercase tracking-wider">
-              원클릭 퀵 AI 질의
-            </h2>
-          </div>
-          <span className="text-[10px] text-slate-400 dark:text-zinc-500">
-            클릭 시 즉시 답변
-          </span>
-        </div>
-
-        <div className="space-y-1.5">
-          {profile.quickAiQuestions.map((q, idx) => (
-            <button
-              key={idx}
-              type="button"
-              onClick={() => handleQuestionClick(q)}
-              className="w-full text-left p-2 rounded-xl text-xs text-slate-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400 bg-slate-50 hover:bg-emerald-50/60 dark:bg-zinc-800/40 dark:hover:bg-emerald-950/20 border border-slate-100 dark:border-zinc-800 hover:border-emerald-200 dark:hover:border-emerald-800/40 transition-all flex items-center justify-between gap-2 cursor-pointer group"
-            >
-              <span className="truncate">{q}</span>
-              <ChevronRight className="w-3 h-3 text-slate-400 group-hover:text-emerald-500 shrink-0 transition-transform group-hover:translate-x-0.5" />
-            </button>
-          ))}
-        </div>
-      </div>
     </div>
   );
 };
