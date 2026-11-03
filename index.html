@@ -58,5 +58,17 @@
   <body class="bg-slate-50 dark:bg-[#09090b] text-slate-900 dark:text-zinc-100 antialiased font-sans selection:bg-[#76b900]/20 selection:text-[#76b900] min-h-screen">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Brand-UI Floating Donation Widget -->
+    <script>
+      window.BrandUIConfig = {
+        appKey: 'nvidia-on-tap',
+        concept: 'beer',
+        donationButtonPosition: 'bottom-right',
+        theme: 'auto',
+        lang: 'auto'
+      };
+    </script>
+    <script src="https://brand-ui.on-tap.xyz/widget.js" async></script>
   </body>
 </html>
