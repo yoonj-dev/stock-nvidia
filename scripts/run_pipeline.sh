@@ -1,1 +1,1 @@
-collect_nvidia_market_data_pipeline.sh
+stock_nvidia_collect_market_data.sh
